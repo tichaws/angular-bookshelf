@@ -1,0 +1,33 @@
+<div class="mx-auto p-6 bg-gray-900 rounded shadow-md space-y-4">
+    <div class="flex flex-col sm:flex-row items-center gap-6">
+        <img [src]="'https://covers.openlibrary.org/b/isbn/' + (detail| async)?.isbn + '-L.jpg'"
+            alt="{{ (detail| async)?.name }}" class="w-40 h-60 object-cover rounded shadow" />
+        <div>
+            <h1 class="text-2xl font-bold text-gray-100">{{ (detail| async)?.name }}</h1>
+            <p class="text-sm text-gray-500 italic">ISBN: {{ (detail| async)?.isbn }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-400">
+        <div><strong>Author(s):</strong> {{ (detail| async)?.authors.join(', ') }}</div>
+        <div><strong>Pages:</strong> {{ (detail| async)?.numberOfPages }}</div>
+        <div><strong>Publisher:</strong> {{ (detail| async)?.publisher }}</div>
+        <div><strong>Country:</strong> {{ (detail| async)?.country }}</div>
+        <div><strong>Media Type:</strong> {{ (detail| async)?.mediaType }}</div>
+        <div><strong>Released:</strong> {{ (detail| async)?.released | date }}</div>
+    </div>
+
+    <div *ngIf="(detail| async)?.characters?.length" class="pt-4">
+        <h2 class="font-semibold text-gray-600 text-lg mb-2">Characters (URLs):</h2>
+        <ul class="list-disc list-inside space-y-1 text-sm text-[#7186a8] ">
+            <li *ngFor="let characterUrl of (detail| async)?.characters.slice(0, 5)">
+                {{ characterUrl }}
+            </li>
+        </ul>
+    </div>
+
+    <button (click)="backToPreviousPage()"
+        class="mt-6 inline-block bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">
+        ← Back
+    </button>
+</div>

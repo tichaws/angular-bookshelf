@@ -1,0 +1,31 @@
+<div class="flex justify-between items-center">
+    <h3 class="mb-4 text-3xl font-extralight text-white/50">☆ Favorite</h3>
+</div>
+<div *ngIf="(favorites$ | async)?.length; else noFav" class="flex flex-col gap-3">
+    <div *ngFor="let book of favorites$ | async"
+        class="flex flex-col sm:flex-row gap-6 bg-gray-900 border rounded shadow p-4 hover:shadow-md transition">
+        <!-- Book Cover -->
+        <img [src]="'https://covers.openlibrary.org/b/isbn/' + book.isbn + '-L.jpg'" alt="cover"
+            class="w-28 h-40 object-cover rounded" />
+
+        <!-- Book Info -->
+        <div class="flex-1 space-y-1">
+            <h3 class="text-xl font-semibold text-gray-300  hover:text-[#7186a8] hover:smooth-hover cursor-pointer" (click)="selected(book)">{{ book.name }}</h3>
+            <p class="text-sm text-gray-500 italic">{{ book.authors.join(', ') }}</p>
+            <p class="text-sm text-gray-600">📖 Pages: {{ book.numberOfPages }}</p>
+            <p class="text-sm text-gray-600">🏢 Publisher: {{ book.publisher }}</p>
+            <p class="text-sm text-gray-600">🌍 Country: {{ book.country }}</p>
+            <p class="text-sm text-gray-600">📦 Type: {{ book.mediaType }}</p>
+            <p class="text-sm text-gray-600">📅 Released: {{ book.released | date }}</p>
+        </div>
+
+        <!-- Unfavorite Button -->
+        <div class="flex sm:flex-col relative items-center justify-between sm:justify-start sm:gap-3">
+            <app-toggle-fav [item]="book" />
+        </div>
+    </div>
+</div>
+
+<ng-template #noFav>
+    <p class="text-gray-500">You haven’t added any favorites yet.</p>
+</ng-template>
