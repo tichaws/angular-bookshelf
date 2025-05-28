@@ -20,7 +20,7 @@ Users can view a list of books, explore detailed information, and manage their f
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/angular-bookshelf.git
+git clone https://github.com/tichaws/angular-bookshelf.git
 cd angular-bookshelf
 
 
